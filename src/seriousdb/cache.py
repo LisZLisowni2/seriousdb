@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+from pathlib import Path
 import time
 from threading import Lock
 from fastapi import HTTPException
@@ -16,7 +17,6 @@ class Cache:
         self.db = None
         self.lock = Lock()
 
-
     def insert(self, key: str, value: str):
         with self.lock:
             if self.db is None:
@@ -26,7 +26,6 @@ class Cache:
                 )
             self.db[key] = value
         return value
-
 
     def select(self, key: str):
         with self.lock:
@@ -40,7 +39,6 @@ class Cache:
             raise HTTPException(status_code=404, detail=f"No value set for key {key}")
         return val
 
-
     def delete(self, key: str):
         with self.lock:
             if self.db is None:
@@ -53,7 +51,7 @@ class Cache:
             raise HTTPException(status_code=404, detail=f"No value set for key {key}")
         return val
 
-    def load(self, filename: str):
+    def load(self, filename: Path):
         with self.lock:
             if not os.path.isfile(filename):
                 self.db = _write_default(filename)
@@ -73,7 +71,6 @@ class Cache:
                     self.db = _write_default(filename)
             self.filename = filename
 
-
     def flush(self):
         with self.lock:
             if self.db is None:
@@ -82,9 +79,7 @@ class Cache:
                 f.write(json.dumps(self.db).encode())
 
 
-def _write_default(filename: str) -> dict:
+def _write_default(filename: Path) -> dict:
     with open(filename, "wb") as f:
         f.write(json.dumps(DEFAULT_DB).encode())
     return dict(DEFAULT_DB)
-
-
