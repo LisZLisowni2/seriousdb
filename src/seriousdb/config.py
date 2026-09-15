@@ -20,8 +20,8 @@ def load_env_file(env_path: Path = ENV_FILE):
             os.environ.setdefault(key.strip(), value.strip().strip("'\""))
 
 
-def validate_config():
-    load_env_file()
+def validate_config(env_path: Path = ENV_FILE):
+    load_env_file(env_path)
 
     # DB_FILE
     DB_FILE_RAW = os.getenv("DB_FILE")

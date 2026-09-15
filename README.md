@@ -31,6 +31,7 @@ Interactive API documentation is available at:
 - [Development guide](docs/development.md)
 - [Persistence](docs/persistence.md)
 - [Contributing](docs/contributing.md)
+- [Configuration](docs/configuration.md)
 
 ## License
 

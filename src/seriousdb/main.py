@@ -7,12 +7,12 @@ from .cache import Cache
 from .config import validate_config
 
 cache = Cache()
+DB_FILE = validate_config()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    db_file_path = validate_config()
-    cache.load(db_file_path)
+    cache.load(DB_FILE)
     yield
 
 
