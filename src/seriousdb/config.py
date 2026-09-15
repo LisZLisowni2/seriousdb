@@ -34,7 +34,7 @@ def validate_config():
     if parent_dir and str(parent_dir) != ".":
         try:
             parent_dir.mkdir(parents=True, exist_ok=True)
-        except Exception as e:
+        except OSError as e:
             raise PermissionError(
                 f"Cannot write to directory DB_FILE '{parent_dir}': {e}"
             )
