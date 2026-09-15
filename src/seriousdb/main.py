@@ -4,14 +4,13 @@ from typing import Annotated
 from fastapi import BackgroundTasks, Depends, FastAPI
 
 from .cache import Cache
-from .config import load_env_file, validate_config
+from .config import validate_config
 
 cache = Cache()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    load_env_file()
     db_file_path = validate_config()
     cache.load(db_file_path)
     yield
