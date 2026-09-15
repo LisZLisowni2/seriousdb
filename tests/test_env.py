@@ -1,10 +1,10 @@
+import os
+import shutil
+import tempfile
+import unittest
 from pathlib import Path
 
 from seriousdb import config
-import unittest
-import tempfile
-import os
-import shutil
 
 
 class ConfigurationTests(unittest.TestCase):

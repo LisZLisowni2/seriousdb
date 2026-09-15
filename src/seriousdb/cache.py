@@ -2,7 +2,6 @@ import json
 import logging
 import os
 import time
-from pathlib import Path
 from threading import Lock
 
 from fastapi import HTTPException
