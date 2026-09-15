@@ -4,10 +4,10 @@ from typing import Annotated
 from fastapi import BackgroundTasks, Depends, FastAPI
 
 from .cache import Cache
-from .config import validate_config
+from .config import config
 
 cache = Cache()
-DB_FILE = validate_config()
+DB_FILE = config.db_file
 
 
 @asynccontextmanager
