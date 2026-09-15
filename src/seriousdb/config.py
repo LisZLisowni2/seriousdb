@@ -20,4 +20,20 @@ def load_env_file(env_path: Path = ENV_FILE):
             os.environ.setdefault(key.strip(), value.strip().strip("'\""))
 
 
-load_env_file()
+def validate_config():
+    DB_PATH_RAW = os.getenv("DB_PATH")
+    if DB_PATH_RAW is None or DB_PATH_RAW.strip() is None:
+        return Path(".sdb")
+
+    path = Path(DB_PATH_RAW.strip())
+    parent_dir = path.parent
+
+    if parent_dir and str(parent_dir) != ".":
+        try:
+            parent_dir.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            raise PermissionError(
+                f"Cannot write to directory DB_FILE '{parent_dir}': {e}"
+            )
+
+    return path
