@@ -12,7 +12,7 @@ DB_FILE = validate_config()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    cache.load(DB_FILE)
+    cache.load(str(DB_FILE))
     yield
 
 
