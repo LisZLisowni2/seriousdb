@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).cwd()
 ENV_FILE = BASE_DIR / ".env"
 
 
@@ -24,9 +24,7 @@ def validate_config(env_path: Path = ENV_FILE):
     load_env_file(env_path)
 
     # DB_FILE
-    DB_FILE_RAW = os.getenv("DB_FILE")
-    if DB_FILE_RAW is None or DB_FILE_RAW.strip() is None:
-        return Path(".sdb")
+    DB_FILE_RAW = os.getenv("DB_FILE", ".sdb")
 
     path = Path(DB_FILE_RAW.strip())
     parent_dir = path.parent
