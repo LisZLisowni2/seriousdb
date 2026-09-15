@@ -11,10 +11,10 @@ class ConfigurationTests(unittest.TestCase):
     def setUp(self):
         self.test_dir = tempfile.mkdtemp()
         self.original_env = os.environ.copy()
+        os.environ.clear()
 
     def tearDown(self):
         shutil.rmtree(self.test_dir)
-        os.environ.clear()
         os.environ.update(self.original_env)
 
     def test_env_file_loading(self):
