@@ -41,3 +41,11 @@ class ConfigurationTests(unittest.TestCase):
 
         self.assertEqual(path, Path(nested_path))
         self.assertTrue(Path(self.test_dir, "sub_folder").exists())
+
+    def test_permission_error_raise(self):
+        nested_path = "/.sdb"
+        env_file_path = Path(self.test_dir) / ".env"
+        env_file_path.write_text(f'DB_FILE="{nested_path}"\n', encoding="utf-8")
+
+        config.validate_config(env_file_path)
+        self.assertRaises(PermissionError)
